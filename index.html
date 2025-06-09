@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header><h1>Formulario</h1></header>
+
+  <nav><h2>Menú</h2></nav>
+
+  <main>
+    <section>
+      <div class="container">
+        <h1>📝Registro Musical</h1>
+        <form id="musicForm">
+          <div class="form-group">
+            <label for="fname">Nombre</label>
+          </div>
+          <div>
+            <input type="text" id="fname" required autofocus placeholder="Ingrese su nombre" pattern="[A-Za-z]{3,40}" />
+          </div>
+
+          <div class="form-group">
+            <label for="lname">Apellido</label>
+          </div>
+          <div>
+            <input type="text" id="lname" required placeholder="Ingrese su apellido" pattern="[A-Za-z]{3,40}" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Correo</label>
+          </div>
+          <div>
+            <input type="email" id="email" required placeholder="example@correo.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono</label>
+          </div>
+          <div>
+            <input type="tel" id="phone" required placeholder="Ingrese su teléfono" pattern="\d{10}" />
+          </div>
+
+          <div class="form-group">
+            <label for="city">Ciudad:</label>
+            <select id="city" name="ciudad" required>
+              <option value="">Selecciona tu ciudad</option>
+              <option value="bogota">Bogotá</option>
+              <option value="bucaramanga">Bucaramanga</option>
+              <option value="pereira">Pereira</option>
+              <option value="manizales">Manizales</option>
+              <option value="cartagena">Cartagena</option>
+              <option value="otra">Otra</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="favorito">Artista o banda favorita</label>
+          </div>
+          <div>
+            <input type="text" id="favorito" name="favorito" placeholder="Ej. Cuarteto de Nos" pattern="[A-Za-z]{3,40}" />
+          </div>
+
+       <div class="form-group">
+       <label>¿Qué géneros musicales te gustan?</label>
+       <label><input type="checkbox" name="generos" value="rock" /> Rock</label>
+       <label><input type="checkbox" name="generos" value="pop" /> Pop</label>
+       <label><input type="checkbox" name="generos" value="reggaeton" /> Reguetón</label>
+       <label><input type="checkbox" name="generos" value="clasica" /> Música clásica</label>
+       <label><input type="checkbox" name="generos" value="otro" id="chkOtro" onclick="mostrarOtroGenero()" /> Otro</label>
+      <div id="otroGeneroTexto" style="display: none;" class="form-group">
+      <label for="otroGenero">Especifica que otro género musical te gusta:</label>
+      <input type="text" id="otroGenero" name="otroGenero" placeholder="Ej. Jazz, Metal, etc." />
+    </div>
+</div>
+
+
+          <div class="form-group">
+            <label for="songs">🎵 ¿Cuántas canciones escuchas al día?</label>
+          </div>
+          <div>
+            <input type="number" id="songs" name="canciones" min="1" max="100" />
+          </div>
+
+          <div class="form-group">
+            <label for="playlist">🔗 Playlist favorita (URL):</label>
+          </div>
+          <div>
+            <input type="url" id="playlist" name="playlist" placeholder="URL de tu playlist" />
+          </div>
+
+          <div class="form-group">
+            <label>¿Dónde sueles escuchar música?</label>
+            <input type="radio" id="spotify" name="plataforma" value="spotify" />
+            <label for="spotify">Spotify</label>
+            <input type="radio" id="apple_music" name="plataforma" value="apple_music" />
+            <label for="apple_music">Apple Music</label>
+            <input type="radio" id="youtube" name="plataforma" value="youtube" />
+            <label for="youtube">YouTube</label>
+            <input type="radio" id="deezer" name="plataforma" value="deezer" />
+            <label for="deezer">Deezer</label>
+            <input type="radio" id="otra" name="plataforma" value="otra" />
+            <label for="otra">Otra</label>
+          </div>
+
+          <div class="form-group">
+            <label for="time">🕐 Hora favorita para escuchar música:</label>
+          </div>
+          <div>
+            <input type="time" id="time" name="hora" />
+          </div>
+
+          <div class="form-group">
+            <label for="comentarios">Comentarios:</label>
+            <textarea id="comentarios" name="comentarios" rows="4" placeholder="Comparte algo sobre ti (opcional)"></textarea>
+          </div>
+
+          <div>
+            <label for="artist">📁 Sube imagen de tu artista favorito:</label>
+          </div>
+          <div>
+            <input type="file" id="artist" name="imagen" accept="image/*" />
+          </div>
+
+          <button type="submit">🚀 Enviar Formulario</button>
+        </form>
+
+        <div id="resultado" class="resultado" style="display:none;">
+          <h3>✅ ¡Formulario enviado exitosamente!</h3>
+          <p>Estos son los datos que enviaste:</p>
+          <div id="datosEnviados"></div>
+          <img id="imagenPreview" style="max-width: 300px; display: none;" alt="Artista favorito" />
+
+        </div>
+      </div>
+
+   <script>
+  function mostrarOtroGenero() {
+    const checkOtro = document.getElementById('chkOtro');
+    const campoTexto = document.getElementById('otroGeneroTexto');
+    campoTexto.style.display = checkOtro.checked ? 'block' : 'none';
+  }
+
+  document.getElementById('musicForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const city = document.getElementById('city').value;
+    const favorito = document.getElementById('favorito').value;
+
+    let generos = [...document.querySelectorAll('input[name="generos"]:checked')].map(input => input.value);
+    const otroGenero = document.getElementById('otroGenero').value.trim();
+    if (generos.includes("otro") && otroGenero) {
+      generos = generos.filter(g => g !== "otro");
+      generos.push(otroGenero);
+    }
+    const generosTexto = generos.join(', ');
+
+    const canciones = document.getElementById('songs').value;
+    const playlist = document.getElementById('playlist').value;
+    const plataforma = document.querySelector('input[name="plataforma"]:checked')?.value || 'No especificado';
+    const hora = document.getElementById('time').value;
+    const comentarios = document.getElementById('comentarios').value;
+
+    const datosEnviados = `
+      <p><strong>Nombre:</strong> ${fname} ${lname}</p>
+      <p><strong>Correo:</strong> ${email}</p>
+      <p><strong>Teléfono:</strong> ${phone}</p>
+      <p><strong>Ciudad:</strong> ${city}</p>
+      <p><strong>Artista favorito:</strong> ${favorito}</p>
+      <p><strong>Géneros musicales:</strong> ${generosTexto}</p>
+      <p><strong>Canciones por día:</strong> ${canciones}</p>
+      <p><strong>Playlist favorita:</strong> ${playlist}</p>
+      <p><strong>Plataforma preferida:</strong> ${plataforma}</p>
+      <p><strong>Hora favorita para escuchar música:</strong> ${hora}</p>
+      <p><strong>Comentarios:</strong> ${comentarios || 'No se proporcionaron comentarios'}</p>
+    `;
+
+    document.getElementById('datosEnviados').innerHTML = datosEnviados;
+    document.getElementById('resultado').style.display = 'block';
+    const fileInput = document.getElementById('artist');
+    const file = fileInput.files[0];
+    const preview = document.getElementById('imagenPreview');
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        preview.src = event.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      preview.style.display = 'none';
+    }
+  });
+</script>
+
+
+    </section>
+  </main>
+</body>
+</html>
